@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found | easyJet holidays</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; font-family: "Nunito", Arial, Helvetica, sans-serif; color: #333; background: #fff; }
+  header { background: linear-gradient(90deg, #FF7D00, #FF6600 55%, #FF7D00); height: 56px; display: flex; align-items: center; padding: 0 24px; }
+  .logo { display: flex; gap: 6px; align-items: center; color: #fff; text-decoration: none; }
+  .mark { background: #fff; color: #FF6600; font-weight: 800; font-size: 14px; padding: 3px 8px; border-radius: 4px; }
+  .word { font-size: 19px; }
+  main { max-width: 640px; margin: 60px auto; padding: 0 16px; text-align: center; }
+  h1 { font-family: "Bebas Neue", "Arial Narrow", Arial, sans-serif; font-weight: 400; font-size: 64px; margin: 0; }
+  .btn { display: inline-block; background: #FF6600; color: #fff; padding: 14px 24px; border-radius: 4px; font-weight: 700; text-decoration: none; margin-top: 18px; }
+</style>
+</head>
+<body>
+<header><a class="logo home" href="./index.html"><span class="mark">easyJet</span><span class="word">holidays</span></a></header>
+<main>
+  <h1>Oops, wrong turn</h1>
+  <p>We couldn't find that page. Let's get you back to planning your next holiday.</p>
+  <a class="btn home" href="./index.html">Search holidays</a>
+</main>
+<script>
+  // GitHub Pages serves this file for any missing path, however deep, so point links at the project root.
+  (function () {
+    var seg = location.hostname.endsWith("github.io") ? "/" + location.pathname.split("/")[1] + "/" : "/";
+    document.querySelectorAll("a.home").forEach(function (a) { a.href = seg + "index.html"; });
+  })();
+</script>
+</body>
+</html>

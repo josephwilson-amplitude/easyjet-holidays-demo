@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Analytics + Session Replay (unified smart loader) -->
+<script src="https://cdn.amplitude.com/script/58bdd4beb93faabbecaaf4258cff5f6d.js"></script>
+<!-- Web Experiment — required for the visual editor to attach -->
+<script src="https://cdn.amplitude.com/script/58bdd4beb93faabbecaaf4258cff5f6d.experiment.js"></script>
+<!-- Guides & Surveys -->
+<script src="https://cdn.amplitude.com/script/58bdd4beb93faabbecaaf4258cff5f6d.engagement.js"></script>
+<script src="./assets/amp-init.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/app.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FF6600'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3Eej%3C/text%3E%3C/svg%3E">
+<script src="./assets/app.js" defer></script>
+<title>My account | easyJet holidays</title>
+</head>
+<body data-page="account">
+<div id="site-header"></div>
+<main class="section"><div class="wrap">
+  <h1>My account</h1>
+  <div id="acct"></div>
+  <h2 id="shortlist" style="margin-top:24px">My shortlist</h2>
+  <div class="cards" id="shortlist-cards"></div>
+  <div class="panel" style="margin-top:28px">
+    <h2>Demo controls</h2>
+    <p class="small">Experiment <code>luggage-prices-compared-reduction</code>: <b id="variant-state"></b></p>
+    <p class="small muted">Force a variant on this browser. You can also add <code>?variant=treatment</code> or <code>?variant=control</code> to any URL, or <code>?debug=1</code> to show the live event stream.</p>
+    <button class="btn outline small" id="v-control">Use control</button> <button class="btn small" id="v-treat">Use treatment</button>
+  </div>
+</div></main>
+<div id="site-footer"></div>
+</body>
+</html>

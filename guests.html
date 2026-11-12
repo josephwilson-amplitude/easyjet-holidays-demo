@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Analytics + Session Replay (unified smart loader) -->
+<script src="https://cdn.amplitude.com/script/58bdd4beb93faabbecaaf4258cff5f6d.js"></script>
+<!-- Web Experiment — required for the visual editor to attach -->
+<script src="https://cdn.amplitude.com/script/58bdd4beb93faabbecaaf4258cff5f6d.experiment.js"></script>
+<!-- Guides & Surveys -->
+<script src="https://cdn.amplitude.com/script/58bdd4beb93faabbecaaf4258cff5f6d.engagement.js"></script>
+<script src="./assets/amp-init.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/app.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FF6600'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3Eej%3C/text%3E%3C/svg%3E">
+<script src="./assets/app.js" defer></script>
+<title>Guest details | easyJet holidays</title>
+</head>
+<body data-page="guests">
+<div id="site-header"></div>
+<div id="progress"></div>
+<main class="section" style="padding-top:22px"><div class="wrap">
+  <h1 style="font-size:26px">Who's going?</h1>
+  <div class="checkout-grid">
+    <div>
+      <div class="panel notice" id="login-gate" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <span><b>Log in to book.</b> You can browse as a guest, but you'll need to log in to complete your booking.</span>
+        <button class="btn small" id="gate-login">Log in</button>
+      </div>
+      <section class="panel">
+        <h2>Lead passenger</h2>
+        <p class="small" id="signed-in"></p>
+        <p class="small muted">Demo only. Nothing you type here is stored or sent.</p>
+        <div class="form-grid">
+          <label class="field"><span>Title</span><select><option>Mr</option><option>Mrs</option><option>Ms</option><option>Miss</option><option>Mx</option></select></label>
+          <label class="field"><span>Date of birth</span><input placeholder="DD/MM/YYYY" autocomplete="off"></label>
+          <label class="field"><span>First name</span><input placeholder="As on passport" autocomplete="off"></label>
+          <label class="field"><span>Last name</span><input placeholder="As on passport" autocomplete="off"></label>
+          <label class="field"><span>Email</span><input placeholder="you@example.com" autocomplete="off"></label>
+          <label class="field"><span>Mobile</span><input placeholder="07700 900000" autocomplete="off"></label>
+        </div>
+        <div id="pax2"></div>
+      </section>
+      <section class="panel">
+        <h2>Payment</h2>
+        <label class="choice sel"><span><input type="radio" name="pay" checked><span id="pay-deposit-lbl"></span></span><span class="delta">Pay the rest up to 28 days before you travel</span></label>
+        <label class="choice"><span><input type="radio" name="pay"><span id="pay-full-lbl"></span></span><span class="delta"></span></label>
+        <p class="small muted">Demo checkout: no card details are taken.</p>
+      </section>
+      <div class="nav-buttons"><a class="btn outline" href="./extras.html">‹ Back</a><button class="btn" id="book-btn">Book now</button></div>
+    </div>
+    <aside class="panel sticky-sum" id="summary"></aside>
+  </div>
+</div></main>
+<div id="site-footer"></div>
+</body>
+</html>
