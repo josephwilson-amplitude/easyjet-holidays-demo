@@ -86,7 +86,10 @@ function currentUser() {
   return null;
 }
 function login(name, demo) {
-  const userId = generateUserId(name, demo);
+  // A user ID set earlier in the session by something else (e.g. the replay bot) is kept,
+  // so pre-login and post-login events stay on one user. Our own IDs end in _<n>_<yyyymmdd>.
+  const existing = window.amplitude && amplitude.getUserId && amplitude.getUserId();
+  const userId = existing && !/_\d+_\d{8}$/.test(existing) ? existing : generateUserId(name, demo);
   store.set("ejh_user", { name: name.trim() || "Guest", demo, userId, date: todayStr() });
   if (window.amplitude) amplitude.setUserId(userId);
   renderHeader();
@@ -184,7 +187,9 @@ function toggleSave(id, btn) {
   renderHeader();
 }
 function heartBtn(id) { return `<button class="heart" data-heart="${id}" aria-label="Add this holiday to my shortlist" title="Add this holiday to my shortlist">${savedIds().includes(id) ? "♥" : "♡"}</button>`; }
-function paintHeart(btn, id) { btn.textContent = savedIds().includes(id) ? "♥" : "♡"; }
+function paintHeart(btn, id) {
+  $$(`.heart[data-heart="${id}"]`).forEach((b) => { b.textContent = savedIds().includes(id) ? "♥" : "♡"; });
+}
 document.addEventListener("click", (e) => {
   const b = e.target.closest("[data-heart]");
   if (b) { e.preventDefault(); e.stopPropagation(); toggleSave(b.dataset.heart, b); }
@@ -462,7 +467,8 @@ pages.results = function () {
     const ss = search(); ss.bags = e.target.checked; saveSearch(ss); $("#sf-bags").checked = ss.bags;
     fired(`hold_bags:${ss.bags ? "yes" : "no"}`);
   };
-  document.addEventListener("ejh:bags", () => { $("#f-bags").checked = search().bags; render(); });
+  // The search-bar toggle counts as a filter on this page too.
+  document.addEventListener("ejh:bags", () => { $("#f-bags").checked = search().bags; fired(`hold_bags:${search().bags ? "yes" : "no"}`); });
   document.addEventListener("ejh:variant", render);
 
   onSeen($("#promo-strip"), () => track("Deal Banner Viewed", { deal_type: "percentage_off", discount_pct: 0.10, saving_amount: 200, holiday_type: f.type || "City breaks" }));
@@ -479,7 +485,7 @@ pages.hotel = function () {
   $("#hotel-hero").innerHTML = `<div><div style="font-size:13px;opacity:.9">${esc(h.city)}, ${esc(h.country)}</div><h1 style="margin:0;font-size:30px">${esc(h.name)}</h1></div>`;
   $("#hotel-head").innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
       <div><span class="stars">${starStr(h.stars)}</span> &nbsp; <span class="ta"><span class="owl"></span><span class="dots">${taDots(h.ta)}</span>${h.ta.toFixed(1)} · ${h.reviews.toLocaleString()} Tripadvisor reviews</span></div>
-      <div>${heartBtn(h.id)} <span class="small muted">Add to shortlist</span></div></div>`;
+      <div>${heartBtn(h.id)} <button class="linkbtn" data-heart="${h.id}">Add to shortlist</button></div></div>`;
   $("#tab-overview").innerHTML = `<p>${esc(h.blurb)}</p><p class="small muted">Flights, hotel &amp; luggage in one package. Choose your room, board basis and flights below, then add luggage, seats and transfers on the next step.</p>`;
   $("#tab-reviews").innerHTML = `<div class="ta-score"><span class="n">${h.ta.toFixed(1)}</span><div><span class="ta"><span class="owl"></span><span class="dots" style="font-size:16px">${taDots(h.ta)}</span></span><br><span class="small muted">Based on ${h.reviews.toLocaleString()} Tripadvisor reviews</span></div></div>
     ${[["Fantastic location", "Spotless rooms and the staff couldn't do enough for us. Would book again.", 5], ["Great value city break", "Easy to get to from the airport. Breakfast was worth adding.", 4], ["Lovely stay", "Rooms a bit small but beds were really comfy and it was quiet at night.", 4]].map(([t, x, n]) => `<div class="review"><span class="dots" style="color:var(--ta-green)">${taDots(n)}</span> <b>${t}</b><p style="margin:4px 0 0">${x}</p></div>`).join("")}`;
@@ -641,6 +647,9 @@ pages.extras = function () {
     };
     draw();
     bg.onclick = (e) => { if (e.target === bg) bg.remove(); };
+    bg.tabIndex = -1;
+    bg.onkeydown = (e) => { if (e.key === "Escape") bg.remove(); };
+    setTimeout(() => bg.focus(), 0);
     document.body.appendChild(bg);
     const holdCost = r2(bags * HOLD_BAG);
     track("Luggage Prices Compared", {
